@@ -4,11 +4,69 @@ package charAt_scanners_optionDialogs;
 
 
 import java.io.IOException;
+
 import java.util.Scanner;
 
-public class PiAloud {
+import javax.swing.JOptionPane;
 
+public class PiAloud {
+	static Scanner scanner = new Scanner(System.in);
 	// 1. Make a main method and make sure your program can run
+	public static void main(String[] args) {
+		String piString = "3.14159265359";
+		
+		for(int i = 0; i<10; i++)
+		{
+			System.out.print(piString.charAt(i));
+			
+		}
+		System.out.println("");
+		
+		for(int i = 0; i<piString.length(); i++)
+		{
+			System.out.print(piString.charAt(i));
+			
+		}
+		System.out.println("");
+		
+		for(int i = 0; i<piString.length(); i++)
+		{
+			speak(piString.charAt(i));
+		}
+
+		System.out.println("How many digits of pi do you know?");
+		int i = 0;
+		char input;
+		
+		
+		while(true)
+		{
+			input = scanner.next().toCharArray()[0];
+			if(piString.charAt(i)=='.')
+			{
+				i++; //skip the decimal point
+			}
+			if (input == piString.charAt(i))
+			{
+				System.out.println("Correct!");
+				i++;
+				if(i == piString.length())
+				{
+					System.out.println("That's a lot! Great job!");
+					break;
+				}
+			}
+			else
+			{
+				System.err.println("incorrect");
+				break;
+			}
+
+					
+		}
+		scanner.close();
+			
+	}
 
 	// 2. Make a String variable to hold the value of Pi. You could use http://www.piday.org/million/ for the value.
 
@@ -25,24 +83,10 @@ public class PiAloud {
 
 	static void speak(char characterToSpeak) {
 		try {
-			Runtime.getRuntime().exec("say " + characterToSpeak).waitFor();
+			//Runtime.getRuntime().exec("say " + characterToSpeak).waitFor(); //doesn't work under Windows 10
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	private static void pause(int seconds) {
-		try {
-			Thread.sleep(1000 * seconds);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
-
-	static char getInputFromUser() {
-		Scanner scanner = new Scanner(System.in);
-		return scanner.next().toCharArray()[0];
 	}
 
 }
